@@ -24,7 +24,7 @@ namespace MvcCoreCochesCosmosDb.Services
         public async Task CreateDatabaseAsync()
         {
             ContainerProperties properties = new ContainerProperties("containercoches"
-                , "/location");
+                , "/id");
             await this.cosmosClient.CreateDatabaseAsync("cochescosmos");
             await this.cosmosClient.GetDatabase("cochescosmos")
                 .CreateContainerAsync(properties);
