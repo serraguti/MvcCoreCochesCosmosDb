@@ -35,5 +35,30 @@ namespace MvcCoreCochesCosmosDb.Controllers
             await this.service.AddVehiculoAsync(car);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            Vehiculo car = await this.service.FindVehiculoAsync(id);
+            return View(car);
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await this.service.DeleteVehiculoAsync(id);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            Vehiculo car = await this.service.FindVehiculoAsync(id);
+            return View(car);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Vehiculo car)
+        {
+            await this.service.UpdateVehiculoAsync(car);
+            return RedirectToAction("Index");
+        }
     }
 }
