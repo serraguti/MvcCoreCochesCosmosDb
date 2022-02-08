@@ -49,6 +49,23 @@ namespace MvcCoreCochesCosmosDb.Services
             return coches;
         }
 
+        public async Task<List<Vehiculo>> GetVehiculosMarcaAsync(string marca)
+        {
+            //DEBEMOS HACER LA CONSULTA SQL
+            string sql = "select * from c where c.Marca='" + marca + "'";
+            //DEBEMOS REALIZAR UNA DEFINICION CON LA CONSULTA SQL
+            QueryDefinition definition = new QueryDefinition(sql);
+            var query =
+                this.containerCosmos.GetItemQueryIterator<Vehiculo>(definition);
+            List<Vehiculo> cars = new List<Vehiculo>();
+            while (query.HasMoreResults)
+            {
+                var response = await query.ReadNextAsync();
+                cars.AddRange(response.ToList());
+            }
+            return cars;
+        }
+
         public async Task UpdateVehiculoAsync(Vehiculo car)
         {
             //TENEMOS UN METODO QUE ES UPSERT

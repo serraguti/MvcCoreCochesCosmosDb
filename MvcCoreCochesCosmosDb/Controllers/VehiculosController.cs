@@ -17,6 +17,19 @@ namespace MvcCoreCochesCosmosDb.Controllers
             this.service = service;
         }
 
+        public IActionResult BuscarVehiculos()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BuscarVehiculos(string marca)
+        {
+            List<Vehiculo> coches =
+                await this.service.GetVehiculosMarcaAsync(marca);
+            return View(coches);
+        }
+
         public async Task<IActionResult> Index()
         {
             List<Vehiculo> vehiculos = 
@@ -30,8 +43,12 @@ namespace MvcCoreCochesCosmosDb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Vehiculo car)
+        public async Task<IActionResult> Create(Vehiculo car, string existemotor)
         {
+            if (existemotor == null)
+            {
+                car.Motor = null;
+            }
             await this.service.AddVehiculoAsync(car);
             return RedirectToAction("Index");
         }

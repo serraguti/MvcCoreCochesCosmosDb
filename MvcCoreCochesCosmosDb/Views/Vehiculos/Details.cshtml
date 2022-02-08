@@ -41,8 +41,24 @@
             @Html.DisplayFor(model => model.VelocidadMaxima)
         </dd>
     </dl>
+    @if (Model.Motor != null)
+    {
+        <ul class="list-group">
+            <li class="list-group-item">
+                Tipo: @Model.Motor.Tipo
+            </li>
+            <li class="list-group-item">
+                Turbo: @Model.Motor.Turbo
+            </li>
+            <li class="list-group-item">
+                Cilindrada: @Model.Motor.Cilindrada
+            </li>
+            <li class="list-group-item">
+                Caballos: @Model.Motor.Caballos
+            </li>
+        </ul>
+    }
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
 </div>
